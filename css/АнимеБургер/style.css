@@ -1,0 +1,159 @@
+:root {
+	--menu-bg-color: #999662;
+	--menu-bg-color-lighter: #8b9b1c;
+	--menu-color: #11e8e882;
+	--duration: 0.7s;
+	--duration-span: 0.25s;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #42428a;
+	height: 100vh;
+}
+
+.wrapper {
+	display: flex;
+	width: 600px;
+	height: 200px;
+	background-color: #acacc0;
+	box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+	border-radius: 20px;
+}
+
+/*! Menu */
+.menu-icon {
+	width: 54px;
+	height: 54px;
+	margin: auto;
+	position: relative;
+	border-radius: 50%;
+}
+
+.menu-icon span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: block;
+	width: 22px;
+	height: 2px;
+	background-color: var(--menu-color);
+}
+
+.menu-icon span::before,
+.menu-icon span::after {
+	content: '';
+	background-color: var(--menu-color);
+	width: 22px;
+	height: 2px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translateY(-6px);
+	transition: transform var(--duration-span);
+}
+
+.menu-icon span::after {
+	transform: translateY(6px);
+}
+
+.menu-icon:hover span::before {
+	transform: translateY(-8px);
+}
+
+.menu-icon:hover span::after {
+	transform: translateY(8px);
+}
+
+/*! Path animation: */
+
+.menu-icon-path span {
+	background-color: var(--menu-color);
+	transition: background-color var(--duration) steps(1, end);
+}
+
+.menu-icon-path svg {
+	fill: var(--menu-bg-color);
+	stroke-width: 2px;
+	stroke: transparent;
+	stroke-dasharray: 22 224.8;
+	transition: stroke-dasharray var(--duration),
+		stroke-dashOffset var(--duration), transform var(--duration),
+		stroke var(--duration) steps(1, end);
+}
+
+.menu-icon-path.isOpen span {
+	background-color: transparent;
+	transition: background-color var(--duration) steps(1, start);
+}
+
+.menu-icon-path.isOpen svg {
+	stroke: var(--menu-color);
+	stroke-dashoffset: -44;
+	stroke-dasharray: 163.38;
+	transition: stroke-dashArray 1.2s, stroke-dashOffset var(--duration),
+		transform var(--duration), stroke var(--duration) steps(1, start),
+		fill var(--duration);
+}
+
+.menu-icon-path.isOpen span::before {
+	transform: translateY(0) rotate(45deg);
+}
+.menu-icon-path.isOpen span::after {
+	transform: translateY(0) rotate(-45deg);
+}
+
+.menu-icon-path.isOpen:hover svg {
+	fill: var(--menu-bg-color-lighter);
+}
+
+/*! Cross animation  */
+.menu-icon-cross {
+	background-color: var(--menu-bg-color);
+	transition: transform var(--duration);
+}
+
+.menu-icon-cross span::before,
+.menu-icon-cross span::after {
+	transform-origin: 50% 50%;
+}
+
+.menu-icon-cross span {
+	transition: background var(--duration), transform var(--duration);
+}
+
+.menu-icon-cross svg {
+	fill: transparent;
+	stroke-width: 2px;
+	stroke: var(--menu-color);
+	stroke-dasharray: 163.38;
+	stroke-dashoffset: 163.38;
+	transition: stroke-dashOffset 1s, fill var(--duration);
+}
+
+.menu-icon-cross.isOpen {
+	transform: rotate(180deg);
+}
+
+.menu-icon-cross.isOpen span {
+	background: transparent;
+}
+
+.menu-icon-cross.isOpen span:before {
+	transform: translateY(0) rotate(45deg);
+}
+
+.menu-icon-cross.isOpen span:after {
+	transform: translateY(0) rotate(-45deg);
+}
+
+.menu-icon-cross.isOpen svg {
+	stroke-dashoffset: 0;
+}
+
+.menu-icon-cross.isOpen:hover svg {
+	fill: var(--menu-bg-color-lighter);
+}
